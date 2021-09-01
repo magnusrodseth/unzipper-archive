@@ -1,8 +1,6 @@
 import sys
 import zipfile
 import os
-import re
-
 
 def unzip(argv):
     # argv should only process 2 arguments
@@ -21,6 +19,9 @@ def unzip(argv):
             read.extractall(destination)
     except:
         return False
+
+    # Remove zipped assignment file
+    os.system(f"rm -rf *.zip")
 
     # Navigate to the destination directory
     os.chdir(destination)
