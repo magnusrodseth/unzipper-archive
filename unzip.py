@@ -30,13 +30,20 @@ def unzip(argv):
     os.system("rm *.txt")
 
     # For each zipped assignment in the destination directory
-    for assignment in os.listdir():
+    for assignment in os.listdir(zipped[0:len(zipped) - 4]):
+        # Check if the file is actually a zipped folder
+        if assignment[len(assignment)-3:] != "zip":
+            continue
+
         # Get student username from auto-generated filename from BlackBoard
         username = assignment.split("_")[1]
 
         # Unzip student file
         try:
-            with zipfile.ZipFile(assignment, 'r') as read:
+            # Find the path to the assignment
+            assignment_path = zipped[0:len(zipped) - 4] + "/" + assignment
+            
+            with zipfile.ZipFile(assignment_path, 'r') as read:
                 read.extractall(username)
         except:
             return False
