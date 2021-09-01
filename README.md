@@ -4,7 +4,7 @@
 
 This Python script was developed out of frustration related to the tedious process of downloading and grading student deliverables.
 
-Before following the "Running the appication" below, make sure you place `unzip.py` in the folder with the zipped file.
+Before following the **Running the application** below, make sure you place `unzip.py` in the folder with the zipped file.
 
 ## Developer Information 🙋🏼‍♂️
 
