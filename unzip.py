@@ -2,6 +2,7 @@ import sys
 import zipfile
 import os
 
+
 def unzip(argv):
     # argv should only process 2 arguments
     if len(argv) != 2:
@@ -13,36 +14,60 @@ def unzip(argv):
     zipped = argv[0]
     destination = argv[1]
 
-    # Unzip file
+    # Unzip assignment file
     try:
         with zipfile.ZipFile(zipped, 'r') as read:
             read.extractall(destination)
     except:
+        print("> Could not unzip assignment file.")
         return False
 
     # Remove zipped assignment file
-    os.system(f"rm -rf *.zip")
+    try:
+        os.system(f"rm -rf *.zip")
+    except:
+        # We should still continue the routine
+        print("> Could not remove zipped assignment file.")
 
     # Navigate to the destination directory
-    os.chdir(destination)
+    try:
+        os.chdir(destination)
+    except:
+        print("> Could not navigate to the destination directory.")
+        return False
 
     # Remove redundant .txt files
-    os.system("rm *.txt")
+    try:
+        os.system("rm *.txt")
+    except:
+        # We should still continue the routine
+        print("> Could not remove .txt files.")
 
     # For each zipped assignment in the destination directory
     for assignment in os.listdir():
+        username = ""
+
         # Get student username from auto-generated filename from BlackBoard
-        username = assignment.split("_")[1]
+        try:
+            username = assignment.split("_")[1]
+        except:
+            # We should still continue the routine
+            print("> Could not simplify student's directory name.")
 
         # Unzip student file
         try:
             with zipfile.ZipFile(assignment, 'r') as read:
                 read.extractall(username)
         except:
+            print("> Could not unzip student's zipped assignment.")
             return False
 
     # Remove zipped assignment file
-    os.system(f"rm -rf *.zip")
+    try:
+        os.system(f"rm -rf *.zip")
+    except:
+        # We should still continue the routine
+        print("> Could not remove zipped assignment file.")
 
     return True
 
