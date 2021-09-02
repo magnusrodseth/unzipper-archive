@@ -14,6 +14,11 @@ def unzip(argv):
     zipped = argv[0]
     destination = argv[1]
 
+    # Only handle .zip files
+    if zipped[-3:] != "zip":
+        print(f"> {zipped} is not a zip file.")
+        return False
+
     # Unzip assignment file
     try:
         with zipfile.ZipFile(zipped, 'r') as read:
@@ -45,6 +50,11 @@ def unzip(argv):
 
     # For each zipped assignment in the destination directory
     for assignment in os.listdir():
+        # Only handle .zip files
+        if assignment[-3:] != "zip":
+            print(f"> {assignment} is not a zip file.")
+            return False
+
         username = ""
 
         # Get student username from auto-generated filename from BlackBoard
