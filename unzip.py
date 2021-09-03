@@ -50,7 +50,8 @@ def unzip(argv):
 
     # Keep track of how many files we can unzip.
     count = 0
-    target = len(os.listdir())
+    # Target is an integer determined by the number of .zip files in the destination directory.
+    target = len([filename for filename in os.listdir() if filename[-3:] == "zip"])
 
     # For each zipped assignment in the destination directory
     for assignment in os.listdir():
