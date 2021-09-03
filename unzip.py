@@ -25,7 +25,6 @@ def unzip(argv):
             read.extractall(destination)
     except:
         print("> Could not unzip assignment file.")
-        return False
 
     # Remove zipped assignment file
     try:
@@ -39,14 +38,13 @@ def unzip(argv):
         os.chdir(destination)
     except:
         print("> Could not navigate to the destination directory.")
-        return False
 
     # Remove redundant .txt files
     try:
         os.system("rm *.txt")
     except:
         # We should still continue the routine
-        print("> Could not remove .txt files.")
+        print("> Could not remove .txt files, or no .txt files was found.")
 
     # For each zipped assignment in the destination directory
     for assignment in os.listdir():
