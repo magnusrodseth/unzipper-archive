@@ -53,7 +53,7 @@ def unzip(argv):
         # Only handle .zip files
         if assignment[-3:] != "zip":
             print(f"> {assignment} is not a zip file.")
-            return False
+            continue
 
         username = ""
 
@@ -70,7 +70,7 @@ def unzip(argv):
                 read.extractall(username)
         except:
             print("> Could not unzip student's zipped assignment.")
-            return False
+            continue
 
     # Remove zipped assignment file
     try:
