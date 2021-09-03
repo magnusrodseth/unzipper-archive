@@ -3,6 +3,24 @@ import zipfile
 import os
 
 
+def get_username(assignment: str) -> str:
+    """
+    Gets the student username from the assignment filename.
+    :param assignment:
+    :return:
+    """
+    username = ""
+
+    # Get student username from auto-generated filename from BlackBoard
+    try:
+        username = assignment.split("_")[1]
+    except:
+        # We should still continue the routine
+        print("> Could not simplify student's directory name.")
+
+    return username
+
+
 def unzip(argv):
     # argv should only process 2 arguments
     if len(argv) != 2:
@@ -26,7 +44,7 @@ def unzip(argv):
             read.extractall(destination)
             print(f"> Unzipped {zipped}.")
     except:
-        print("> Could not unzip assignment file.")
+        print(f"> Could not unzip {zipped}.")
 
     # Remove zipped assignment file
     try:
@@ -39,7 +57,15 @@ def unzip(argv):
     try:
         os.chdir(destination)
     except:
-        print("> Could not navigate to the destination directory.")
+        print(f"> Could not navigate to /{destination}.")
+
+    # Make a feedback directory to store each student's feedback files
+    if not os.path.exists('feedback'):
+        os.mkdir("feedback")
+
+    # Make a deliverables directory to store each student's deliverables files
+    if not os.path.exists('deliverables'):
+        os.mkdir("deliverables")
 
     # Remove redundant .txt files
     try:
@@ -60,24 +86,35 @@ def unzip(argv):
             print(f"> {assignment} is not a zip file.")
             continue
 
-        username = ""
+        username = get_username(assignment)
 
-        # Get student username from auto-generated filename from BlackBoard
-        try:
-            username = assignment.split("_")[1]
-        except:
-            # We should still continue the routine
-            print("> Could not simplify student's directory name.")
+        # # Navigate to the deliverables directory
+        # try:
+        #     os.chdir("deliverables")
+        # except:
+        #     print("> Could not navigate to the deliverables directory.")
 
         # Unzip student file
         try:
             with zipfile.ZipFile(assignment, 'r') as read:
-                read.extractall(username)
+                read.extractall(f'deliverables/{username}')
                 count += 1
                 print(f"> Unzipped {username}'s deliverable. ({count} / {target})")
         except:
             print("> Could not unzip student's zipped assignment.")
             continue
+
+    for assignment in os.listdir():
+        username = get_username(assignment)
+
+        # Navigate to the feedback directory
+        # try:
+        #     os.chdir("feedback")
+        # except:
+        #     print("> Could not navigate to the feedback directory.")
+
+        with open(f'feedback/{username}.txt', 'w') as f:
+            f.write(f"Tilbakemelding til {username}")
 
     # Remove zipped assignment file
     try:
