@@ -114,7 +114,7 @@ def unzip(argv):
         #     print("> Could not navigate to the feedback directory.")
 
         with open(f'feedback/{username}.txt', 'w') as f:
-            f.write(f"Tilbakemelding til {username}")
+            f.write(f"Tilbakemelding til {username} (__%)")
 
     # Remove zipped assignment file
     try:
