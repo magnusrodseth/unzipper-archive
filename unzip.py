@@ -21,7 +21,13 @@ def get_username(assignment: str) -> str:
     return username
 
 
-def unzip(argv):
+def unzip(argv) -> bool:
+    """
+    Unzips the global .zip file and structures all student deliverables.
+    :param argv: is the command line arguments.
+    :return: a boolean value indicating whether the unzipping was successful.
+    """
+
     # argv should only process 2 arguments
     if len(argv) != 2:
         print("> Invalid input. Please use the following format:")
