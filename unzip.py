@@ -94,12 +94,6 @@ def unzip(argv) -> bool:
 
         username = get_username(assignment)
 
-        # # Navigate to the deliverables directory
-        # try:
-        #     os.chdir("deliverables")
-        # except:
-        #     print("> Could not navigate to the deliverables directory.")
-
         # Unzip student file
         try:
             with zipfile.ZipFile(assignment, 'r') as read:
