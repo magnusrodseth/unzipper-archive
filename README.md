@@ -2,9 +2,9 @@
 
 ## Description ✏️
 
-This Python script was developed out of frustration related to the tedious process of downloading and grading student deliverables.
+This repository was developed out of frustration related to the tedious process of downloading and grading student deliverables.
 
-Before following the **Running the application** below, make sure you place `unzip.py` in the folder with the zipped file.
+Before following the **Running the application** below, make sure you place the zipped file in the `unzipper` directory.
 
 ## Directory Structure 📂
 
@@ -14,10 +14,14 @@ After running the script, the directories `deliverables` and `feedback` are gene
 
 Do you want to "automagically" (🎩✨) validate all `.html`, `.css` and `.js` files for an assignment using W3 Validator? Simply use the `validate.sh` script to recursively navigate through all subdirectories for an assignment and `POST` the relevant files. The result is stored as a `.json` file in each student's deliverable directory.
 
+**`Terminal`**
+
 ```sh
 # Execute the script from the unzipper directory and simply name the assignment directory
 sh validate.sh assignment-1
 ```
+
+**`about_html.json`**
 
 ```json
 // An example of a result from W3 Validator
@@ -49,5 +53,6 @@ cd unzipper
 # Unzip and structure files
 python3 unzip.py zipped_filename destination_directory
 
+# Validate all students' .html, .css and .js files
 sh validate.sh assignment_directory
 ```
