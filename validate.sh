@@ -1,22 +1,69 @@
 #!/usr/bin/env bash
 
-validate() {
-  echo "> Make sure your input is on the following format:"
-  echo "$ sh validate.sh path_to_html_file target_directory"
-  echo
+traverse() {
+  directory=$1
 
-  filename=$1
-  target_directory=$2
+  # Iterate through all child directories and files
+  for i in "$directory"/*; do
 
-  echo "> Posting file to W3 Validator"
-  echo
+    # If directory, recursively move further down the directory tree
+    if [ -d "$i" ]; then
+      traverse "$i"
 
-  curl -H "Content-Type: text/html; charset=utf-8" \
-    --data-binary "$filename" \
-    https://validator.w3.org/nu/?out=json >"$target_directory"/validate.json
+    # If file, execute the validation routine
+    elif [ -f "$i" ]; then
+      filename=$i
 
-  echo
-  echo "> Wrote response to validate.json"
+      # We only care about .html, .css and .js files
+      if [ "${filename: -5}" == ".html" ] ||
+        [ "${filename: -4}" == ".css" ] ||
+        [ "${filename: -3}" == ".js" ]; then
+
+        # Split filename on dot [.], and extract the path without extension.
+        # This assumes the path only has 1 dot [.] in it
+        IFS='.' read -ra ADDR <<<"$filename"
+        validate_file="${ADDR[0]}"_"${ADDR[1]}".json
+
+        # Determine content type
+        content_type=""
+        if [ "${filename: -5}" == ".html" ]; then
+          content_type="text/html"
+        elif [ "${filename: -4}" == ".css" ]; then
+          content_type="text/css"
+        elif [ "${filename: -3}" == ".js" ]; then
+          content_type="text/javascript"
+        fi
+
+        echo "> Posting file to W3 Validator"
+        echo
+
+        # It is extremely important to have the "@" before the filename
+        curl -H "Content-Type: $content_type; charset=utf-8" \
+          --data-binary @"$filename" \
+          https://validator.w3.org/nu/?out=json >"$validate_file"
+
+        echo
+        echo "> Wrote response to ""$validate_file"""
+        echo
+      fi
+    fi
+  done
 }
 
-validate "$1" "$2"
+validate() {
+  directory=$1
+  traverse "$directory"
+}
+
+die() {
+  echo "Illegal syntax! Make sure you use the following format:"
+  echo "$ sh validate.sh assignment_directory"
+
+  exit 1
+}
+
+# Valid syntax:
+# $ sh validate.sh assignment_directory
+[ "$#" -eq 1 ] || die
+
+validate "$1"
