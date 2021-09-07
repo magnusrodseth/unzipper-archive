@@ -44,7 +44,10 @@ Developed by Magnus Rødseth.
 ## Running the application ✅
 
 ```sh
-cd folder-with-zipped-file
+cd unzipper
 
-python3 unzip.py zipped-filename destination-directory
+# Unzip and structure files
+python3 unzip.py zipped_filename destination_directory
+
+sh validate.sh assignment_directory
 ```
