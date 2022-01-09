@@ -144,3 +144,4 @@ cython_debug/
 assignment*
 *.zip
 *.json
+project*

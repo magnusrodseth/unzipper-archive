@@ -2,7 +2,6 @@ import sys
 import zipfile
 import os
 
-
 def get_username(assignment: str) -> str:
     """
     Gets the student username from the assignment filename.
