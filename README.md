@@ -12,7 +12,7 @@ After running the script, the directories `deliverables` and `feedback` are gene
 
 ## Validate files with W3 Validator 🔍
 
-Do you want to "automagically" (🎩✨) validate all `.html`, `.css` and `.js` files for an assignment using W3 Validator? Simply use the `validate.sh` script to recursively navigate through all subdirectories for an assignment and `POST` the relevant files. The result is stored as a `.json` file in each student's deliverable directory.
+Do you want to "automagically" validate all `.html`, `.css` and `.js` files for an assignment using W3 Validator? Simply use the `validate.sh` script to recursively navigate through all subdirectories for an assignment and `POST` the relevant files. The result is stored as a `.json` file in each student's deliverable directory.
 
 **`Terminal`**
 
