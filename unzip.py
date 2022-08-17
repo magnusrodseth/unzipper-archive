@@ -88,7 +88,6 @@ def unzip(argv) -> bool:
     for assignment in os.listdir():
         # Only handle .zip files
         if assignment[-3:] != "zip":
-            print(f"> {assignment} is not a zip file.")
             continue
 
         username = get_username(assignment)
